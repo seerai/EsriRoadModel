@@ -7,7 +7,6 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY _road_inference.py RoadsExtraction_NorthAmerica.emd RoadsExtraction_NorthAmerica.pth /app/
 COPY requirements.txt /app/
 
 RUN pip3 install --upgrade pip \
@@ -16,6 +15,8 @@ RUN pip3 install --upgrade pip \
 
 FROM python:3.7-slim-buster as app
 COPY --from=builder /root/.local /root/.local
+RUN mkdir road_model
+COPY road_model/_road_inference.py road_model/RoadsExtraction_NorthAmerica.emd road_model/RoadsExtraction_NorthAmerica.pth road_model/
 COPY run_road_model.py .
 ENV PATH=/root/.local/bin/$PATH
 CMD ["python3", "-u", "run_road_model.py"]

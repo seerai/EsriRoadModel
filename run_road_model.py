@@ -1,7 +1,7 @@
 import logging
 import numpy as np
 from geodesic.tesseract.models import serve
-from _road_inference import ChildImageClassifier
+from road_model._road_inference import ChildImageClassifier
 import torch
 
 
