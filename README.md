@@ -16,3 +16,7 @@ cls = ChildImageClassifier()
 cls.initialize(model="path/to/emd", model_as_file=True)
 output_tensor, _ = cls.model(input_tensor)
 ```
+
+## NOTE:
+This repo does not contain the `pth` file with the network weights. You must download and unzip the dlpk from the link above
+and put it into the `road_model` folder for the docker image to build.

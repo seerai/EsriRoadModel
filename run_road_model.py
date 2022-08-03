@@ -1,5 +1,4 @@
 import logging
-import numpy as np
 from geodesic.tesseract.models import serve
 from road_model._road_inference import ChildImageClassifier
 import torch
@@ -8,12 +7,12 @@ import torch
 class Model:
     def __init__(self):
         self.cls = ChildImageClassifier()
-        self.cls.initialize(model="RoadsExtraction_NorthAmerica.emd")
+        self.cls.initialize(model="road_model/RoadsExtraction_NorthAmerica.emd", model_as_file=True)
 
-    def inference(self, assets: dict, logger: logging.logger) -> dict:
+    def inference(self, assets: dict, logger: logging.Logger) -> dict:
         array = assets['roads-imagery']
 
-        in_tensor = torch.from_numpy(array)
+        in_tensor = torch.from_numpy(array).squeeze()
         output, _ = self.cls.model(in_tensor)
 
         return {
