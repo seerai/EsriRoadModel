@@ -2,8 +2,6 @@ import logging
 from geodesic.tesseract.models import serve
 from arcgis.learn.models._multi_task_road_extractor import MultiTaskRoadExtractor
 import torch
-import numpy as np
-import time
 
 
 class Model:
@@ -31,14 +29,14 @@ class Model:
         output = output.cpu().detach().numpy()
 
         return {
-            'roads': output
+            'roads': output.astype('|u1')
         }
 
     def get_model_info(self):
         return {
             'inputs': [
                 {
-                    'name': 'road_model',
+                    'name': 'roads-imagery',
                     'dtype': '<f4',
                     'shape': [1, 4, 1024, 1024]
                 }
@@ -55,4 +53,4 @@ class Model:
 
 if __name__ == '__main__':
     model = Model()
-    serve(model.inference)
+    serve(model.inference, model.get_model_info)
