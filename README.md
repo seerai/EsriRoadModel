@@ -5,10 +5,7 @@ Using the road model for North America which can be found
 
 There is also a global model but it uses TensorFlow so I don’t want to deal with trying to get it running.
 
-In the DLPK there are two scripts `ArcGISImageClassifier.py` and `_road_inference.py`. From what I can tell the first one is just
-a wrapper for the second one and since we just want access to the model itself we can just use `_road_inference.py`.
-
-You can initialize and get access to the model with:
+You can initialize and get access to the model with something like:
 ```python
 from arcgis.learn.models._multi_task_road_extractor import MultiTaskRoadExtractor
 
@@ -28,9 +25,9 @@ docker build -t roadmodel:v0.0.1 -f dockerfile .
 ```
 
 ### Test Locally
-There is a script that will test to make sure the docker container can properly communicate with tesseract. To run the test:
+The Geodesic CLI can test to make sure the docker container can properly communicate with tesseract. To run the test:
 ```bash
-python test_image.py --image roadmodel:v0.0.1
+geodesic validate roadmodel:v0.0.1
 ```
 
 
