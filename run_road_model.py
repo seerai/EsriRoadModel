@@ -3,6 +3,7 @@ from geodesic.tesseract.models import serve
 from arcgis.learn.models._multi_task_road_extractor import MultiTaskRoadExtractor
 import torch
 
+logging.basicConfig(level=logging.DEBUG)
 
 class Model:
     def __init__(self):
@@ -22,7 +23,6 @@ class Model:
 
         logger.info("running esri road model")
         in_tensor = torch.from_numpy(array).to(self.device)
-        in_tensor = in_tensor[:, 0:3, :, :]  # Get the first 3 bands. The 4th is just a mask.
         output, _ = self.model(in_tensor)
 
         output = output.softmax(dim=1)[:, [1], :, :].gt(0.5)
@@ -38,7 +38,7 @@ class Model:
                 {
                     'name': 'roads-imagery',
                     'dtype': '<f4',
-                    'shape': [1, 4, 1024, 1024]
+                    'shape': [1, 3, 1024, 1024]
                 }
             ],
             'outputs': [
