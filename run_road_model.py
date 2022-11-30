@@ -1,5 +1,5 @@
 import logging
-from geodesic.tesseract.models import serve
+from tesseract import serve
 from arcgis.learn.models._multi_task_road_extractor import MultiTaskRoadExtractor
 import torch
 
